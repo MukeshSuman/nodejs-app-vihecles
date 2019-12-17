@@ -1,0 +1,5 @@
+﻿{
+    "connectionString_1":"mongodb://mukeshsuman:mukesh9199@ds353378.mlab.com:53378/viheclestest",
+    "connectionString": "mongodb://mukeshsuman:mukesh9199@ds241408.mlab.com:41408/vihecles",
+    "secret": "SECRETSTRING"
+}
