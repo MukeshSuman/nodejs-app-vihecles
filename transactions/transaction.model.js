@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema(
   {
+    date: { type: Date, required: true },
     amount: { type: Number, required: true },
     name: { type: String, required: true, max: 50 },
     description: { type: String, required: false, max: 50 },
@@ -11,7 +12,8 @@ const schema = new Schema(
     createdBy: { type: Schema.Types.ObjectId, required: true, ref: "User" }
   },
   {
-    timestamps: true
+    timestamps: true,
+    strict: false
   }
 );
 

@@ -13,7 +13,8 @@ const schema = new Schema(
     createdDate: { type: Date, default: Date.now }
   },
   {
-    timestamps: true
+    timestamps: true,
+    strict: false
   }
 );
 
