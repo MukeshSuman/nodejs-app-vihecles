@@ -8,7 +8,7 @@ const prepareData = workData => {
       type = workData.paymentType || 'Null'
   }
   if (workData.status !== "Completed") {
-    description += "(AI - due amount" + (workData.amount - workData.paid) + ")";
+    description += "(AI - due amount " + (workData.amount - workData.paid) + ")";
   }
   return {
     date: workData.date || new Date(),
