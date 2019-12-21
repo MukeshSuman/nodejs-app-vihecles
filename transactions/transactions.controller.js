@@ -16,11 +16,11 @@ function create(req, res, next) {
   req.body["createdBy"] = req.user.sub;
   transactionService
     .create(req.body)
-    .then(() =>
+    .then((result) =>
       responseHandler(
         {
           code: 200,
-          data: {},
+          data: result,
           message: "transaction has been successfully created"
         },
         req,
@@ -50,11 +50,11 @@ function getById(req, res, next) {
 function update(req, res, next) {
   transactionService
     .update(req.params.id, req.body)
-    .then(() =>
+    .then((result) =>
       responseHandler(
         {
           code: 200,
-          data: null,
+          data: result,
           message: "transaction has been successfully updated"
         },
         req,

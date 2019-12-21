@@ -16,11 +16,11 @@ function create(req, res, next) {
   req.body["createdBy"] = req.user.sub;
   maintenanceService
     .create(req.body)
-    .then(() =>
+    .then((result) =>
       responseHandler(
         {
           code: 200,
-          data: {},
+          data: result,
           message: "maintenance has been successfully created"
         },
         req,
@@ -50,11 +50,11 @@ function getById(req, res, next) {
 function update(req, res, next) {
   maintenanceService
     .update(req.params.id, req.body)
-    .then(() =>
+    .then((result) =>
       responseHandler(
         {
           code: 200,
-          data: null,
+          data: result,
           message: "maintenance has been successfully updated"
         },
         req,

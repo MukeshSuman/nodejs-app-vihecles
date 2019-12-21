@@ -16,11 +16,11 @@ function create(req, res, next) {
   req.body["createdBy"] = req.user.sub;
   workService
     .create(req.body)
-    .then(() =>
+    .then((result) =>
       responseHandler(
         {
           code: 200,
-          data: {},
+          data: result,
           message: "work has been successfully created"
         },
         req,
@@ -50,11 +50,11 @@ function getById(req, res, next) {
 function update(req, res, next) {
   workService
     .update(req.params.id, req.body)
-    .then(() =>
+    .then((result) =>
       responseHandler(
         {
           code: 200,
-          data: null,
+          data: result,
           message: "work has been successfully updated"
         },
         req,
