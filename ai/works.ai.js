@@ -15,7 +15,7 @@ const prepareData = workData => {
     name: workData.name || "Guest",
     type: type,
     amount: workData.paid,
-    category: "Daily",
+    category: "Work",
     description: description,
     referenceModel: "Work",
     referenceId: workData._id,
