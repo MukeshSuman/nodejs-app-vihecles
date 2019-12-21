@@ -1,5 +1,7 @@
 ﻿const db = require("_helpers/db");
+const ai = require("ai");
 const Maintenance = db.Maintenance;
+const Transaction = db.Transaction;
 
 module.exports = {
   getAll,
@@ -10,7 +12,7 @@ module.exports = {
 };
 
 async function getAll() {
-  return await Maintenance.find().sort('-date');
+  return await Maintenance.find().sort("-date");
 }
 
 async function getById(id) {
@@ -19,7 +21,9 @@ async function getById(id) {
 
 async function create(maintenanceParam) {
   const maintenance = new Maintenance(maintenanceParam);
-  await maintenance.save();
+  const saveMaintenance = await maintenance.save();
+  ai.maintenancesAi(saveMaintenance);
+  return saveMaintenance;
 }
 
 async function update(id, maintenanceParam) {
@@ -31,9 +35,12 @@ async function update(id, maintenanceParam) {
   // copy maintenanceParam properties to maintenance
   Object.assign(maintenance, maintenanceParam);
 
-  await maintenance.save();
+  const saveMaintenance = await maintenance.save();
+  ai.maintenancesAi(saveMaintenance);
+  return saveMaintenance;
 }
 
 async function _delete(id) {
+  await Transaction.remove({ referenceId: id });
   await Maintenance.findByIdAndRemove(id);
 }

@@ -9,7 +9,9 @@ const schema = new Schema(
     description: { type: String, required: false, max: 50 },
     category: { type: String, required: true, default: "Daily" }, // Daily, Worker, Fuel,  Maintenance, Deposited, Withdrawn, Salary, Advance
     type: { type: String, required: true, default: "Credited" }, // Debited, Credited
-    createdBy: { type: Schema.Types.ObjectId, required: true, ref: "User" }
+    createdBy: { type: Schema.Types.ObjectId, required: true, ref: "User" },
+    referenceModel: { type: String, required: false },
+    referenceId: { type: Schema.Types.ObjectId, required: false }
   },
   {
     timestamps: true,

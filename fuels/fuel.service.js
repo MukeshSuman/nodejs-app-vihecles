@@ -1,5 +1,7 @@
 ﻿const db = require("_helpers/db");
+const ai = require("ai");
 const Fuel = db.Fuel;
+const Transaction = db.Transaction;
 
 module.exports = {
   getAll,
@@ -19,7 +21,9 @@ async function getById(id) {
 
 async function create(fuelParam) {
   const fuel = new Fuel(fuelParam);
-  await fuel.save();
+  const saveFuel = await fuel.save();
+  ai.fuelsAi(saveFuel);
+  return saveFuel;
 }
 
 async function update(id, fuelParam) {
@@ -31,9 +35,12 @@ async function update(id, fuelParam) {
   // copy fuelParam properties to fuel
   Object.assign(fuel, fuelParam);
 
-  await fuel.save();
+  const saveFuel = await fuel.save();
+  ai.fuelsAi(saveFuel);
+  return saveFuel;
 }
 
 async function _delete(id) {
+  await Transaction.remove({ referenceId: id });
   await Fuel.findByIdAndRemove(id);
 }

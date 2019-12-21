@@ -1,5 +1,7 @@
 ﻿const db = require("_helpers/db");
+const ai = require("ai");
 const Work = db.Work;
+const Transaction = db.Transaction;
 
 module.exports = {
   getAll,
@@ -10,7 +12,7 @@ module.exports = {
 };
 
 async function getAll() {
-  return await Work.find().sort('-date');;
+  return await Work.find().sort("-date");
 }
 
 async function getById(id) {
@@ -19,7 +21,9 @@ async function getById(id) {
 
 async function create(workParam) {
   const work = new Work(workParam);
-  await work.save();
+  const saveWork = await work.save();
+  ai.worksAi(saveWork);
+  return saveWork;
 }
 
 async function update(id, workParam) {
@@ -31,9 +35,12 @@ async function update(id, workParam) {
   // copy workParam properties to work
   Object.assign(work, workParam);
 
-  await work.save();
+  const saveWork = await work.save();
+  ai.worksAi(saveWork);
+  return saveWork;
 }
 
 async function _delete(id) {
+  await Transaction.remove({ referenceId: id });
   await Work.findByIdAndRemove(id);
 }
