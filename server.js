@@ -10,6 +10,8 @@ const config = require("config.json");
 const CronJob = require("cron").CronJob;
 const mongodbBackup = require("mongodb-backup");
 const fs = require("fs");
+const path = require('path');
+const nodemailer = require("nodemailer");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,33 +20,19 @@ app.use(cors());
 // use JWT auth to secure the api
 app.use(jwt());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 // api routes
 app.use("/users", require("./users/users.controller"));
 app.use("/works", require("./works/works.controller"));
 app.use("/fuels", require("./fuels/fuels.controller"));
 app.use("/maintenances", require("./maintenances/maintenances.controller"));
 app.use("/transactions", require("./transactions/transactions.controller"));
+app.use("/picklists", require("./picklists/picklists.controller"));
 
 // global error handler
 app.use(errorHandler);
 
-new CronJob(
-  "0 0 * * *",
-  function() {
-    console.log("CronJob", new Date());
-    const dateTime = new Date().getTime();
-    const dir = "mongodb-backup/" + dateTime;
-    fs.mkdirSync(dir);
-    mongodbBackup({
-      uri: process.env.MONGODB_URI || config.connectionString,
-      root: dir,
-      parser: "json"
-    });
-  },
-  null,
-  true,
-  "Asia/Kolkata"
-);
 
 // start server
 const port =

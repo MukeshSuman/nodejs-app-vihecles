@@ -11,5 +11,7 @@ module.exports = {
   Work: require("../works/work.model"),
   Fuel: require("../fuels/fuel.model"),
   Maintenance: require("../maintenances/maintenance.model"),
-  Transaction: require("../transactions/transaction.model")
+  Transaction: require("../transactions/transaction.model"),
+  Picklist: require("../picklists/picklist.model"),
+
 };

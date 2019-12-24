@@ -30,7 +30,6 @@ build/Release
 node_modules
 jspm_packages
 typings
-mongodb-backup
 
 # Optional npm cache directory
 .npm
